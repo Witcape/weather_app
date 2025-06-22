@@ -6,8 +6,7 @@ from urllib.parse import quote
 def index(request):
     if request.method == "POST":
         city = request.POST["city"]
-        encoded_city = quote(city)
-        url = f"https://api.openweathermap.org/data/2.5/weather?q={encoded_city}&appid=3f06057bd34c5525c370f120e2db619d"
+        url = f"https://api.openweathermap.org/data/2.5/weather?q={city}&appid=3f06057bd34c5525c370f120e2db619d"
         res = urllib.request.urlopen(url).read()
         json_data = json.loads(res)
         print(json_data)
@@ -19,7 +18,6 @@ def index(request):
             "humidity": str(json_data['main']['humidity']),
         }
     else:
-        data = {
-            
-        }
+        city = request.POST["city"]
+        data = {}
     return render(request, 'index.html', data)
